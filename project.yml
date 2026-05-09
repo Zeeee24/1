@@ -1,0 +1,42 @@
+name: CineDream
+options:
+  bundleIdPrefix: com.cinedream
+  xcodeVersion: "16.0"
+targets:
+  CineDream:
+    type: application
+    platform: iOS
+    deploymentTarget: "15.0"
+    sources:
+      - path: CineDream
+    info:
+      path: CineDream/Info.plist
+      properties:
+        UILaunchScreen:
+          UIColorName: LaunchBackgroundColor
+        UIApplicationSceneManifest:
+          UIApplicationSupportsMultipleScenes: false
+          UISceneConfigurations:
+            UIWindowSceneSessionRoleApplication:
+              - UISceneConfigurationName: Default Configuration
+                UISceneDelegateClassName: $(PRODUCT_MODULE_NAME).SceneDelegate
+        NSAppTransportSecurity:
+          NSAllowsArbitraryLoads: true
+        UIBackgroundModes:
+          - audio
+          - fetch
+        UIRequiresFullScreen: true
+        UISupportedInterfaceOrientations:
+          - UIInterfaceOrientationPortrait
+          - UIInterfaceOrientationLandscapeLeft
+          - UIInterfaceOrientationLandscapeRight
+    settings:
+      base:
+        CODE_SIGNING_ALLOWED: "NO"
+        CODE_SIGNING_REQUIRED: "NO"
+        CODE_SIGN_IDENTITY: ""
+        DEVELOPMENT_TEAM: ""
+        ENABLE_BITCODE: "NO"
+        TARGETED_DEVICE_FAMILY: "1" # iPhone only
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        TMDB_API_KEY: ""

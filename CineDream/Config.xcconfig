@@ -1,0 +1,7 @@
+// Local build configuration template
+// Copy this file to `Config.xcconfig` (without .example) and add your actual API keys.
+// The `Config.xcconfig` file is gitignored and will not be committed.
+
+TMDB_API_KEY = your_tmdb_api_key_here
+SUPABASE_URL = https://jezslwyhwxovsijqavca.supabase.co
+SUPABASE_ANON_KEY = your_supabase_anon_key_here
