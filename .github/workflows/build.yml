@@ -1,1 +1,45 @@
+name: Build iOS App
 
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build unsigned IPA
+    runs-on: macos-15
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+      # inject API keys from repository secrets
+      TMDB_API_KEY: ${{ secrets.TMDB_API_KEY }}
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Install XcodeGen
+        run: brew install xcodegen
+
+      - name: Generate Xcode Project
+        run: xcodegen generate
+
+      - name: Build App
+        run: |
+          xcodebuild clean build \
+            -scheme CineDream \
+            -configuration Release \
+            -sdk iphoneos \
+            -derivedDataPath build/DerivedData \
+            TMDB_API_KEY="${TMDB_API_KEY}"
+
+      - name: Create IPA
+        run: |
+          mkdir -p Payload
+          cp -r build/DerivedData/Build/Products/Release-iphoneos/CineDream.app Payload/
+          zip -r CineDream.ipa Payload
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: CineDream-IPA
+          path: CineDream.ipa
